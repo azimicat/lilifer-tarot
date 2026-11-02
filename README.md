@@ -41,11 +41,22 @@ python3 -m http.server 8001 --bind 127.0.0.1 --directory dist
 - `dist/spreads.json`：6種類のスプレッドと配置
 - `dist/assets/`：カード画像80枚
 - `dist/original/`：原文ページ画像79枚
+- `dist/manifest.webmanifest`：ホーム画面に追加したときのアプリ名・アイコン・配色
+- `dist/sw.js`：一度読んだページをオフラインでも表示するService Worker
+- `dist/icons/`：ホーム画面用アイコン（Luciferのカードの星と翼を切り出したもの）
 - `content.py`：cards.jsonの生成元（Python標準ライブラリのみ）
 - `guide.py`：guide.json・spreads.jsonの生成元（Python標準ライブラリのみ）
+- `icons.py`：`dist/icons/` の生成元（Pillowが必要。サイトの起動には不要）
 - `.github/workflows/pages.yml`：GitHub Pagesへの公開設定
 
 翻訳を変更するときは生成元のPythonファイルも更新してから `python3 content.py` / `python3 guide.py` を実行してください。JSONを直接編集した場合は、再生成による上書きに注意してください。通常の起動に再生成は必要ありません。
+
+## ホーム画面への追加
+
+AndroidのChromeで公開サイトを開き、メニューの「ホーム画面に追加」または「アプリをインストール」を選ぶと、アプリとして起動できます。iPhoneのSafariでは共有メニューの「ホーム画面に追加」を使います。
+
+一度開いたページ・カード画像は端末に保存され、電波のない場所でも表示されます。まだ開いていないカード画像は表示されません。
+`dist/sw.js` の `CACHE` の値を変えると、各端末の保存済みファイルが入れ替わります。HTML・CSS・JS・JSONはつながる場所では毎回公開サイトから読むため、文章や画面の変更では値を変える必要はありません。画像を同じファイル名で差し替えたときだけ変更してください。
 
 ## 保存されるデータ
 
